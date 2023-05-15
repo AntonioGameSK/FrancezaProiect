@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exercitii</title>
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    p#result {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Exercițiu pluralul substantivelor și adjectivelor - Franceză</h1>
+
+  <form id="quizForm">
+    <div id="questions"></div>
+    <br>
+    <button type="button" onclick="checkAnswers()">Verifică răspunsurile</button>
+  </form>
+
+  <p id="result"></p>
+
+  <script>
+    // Definim întrebările și răspunsurile
+    var questions = [
+      {
+        question: "1. Alege forma corectă de plural a substantivului 'chat' (pisică) în franceză:",
+        options: ["chats", "chates", "chits"],
+        answer: "chats"
+      },
+      {
+        question: "2. Alege forma corectă de plural a substantivului 'chien' (câine) în franceză:",
+        options: ["chiennes", "chiens", "chines"],
+        answer: "chiens"
+      },
+      {
+        question: "3. Alege forma corectă de plural a substantivului 'chat' (pisică) în franceză:",
+        options: ["Nice", "Nope", "Nah"],
+        answer: "Nice"
+      }
+      // Poți adăuga și alte întrebări aici
+    ];
+
+    // Funcție pentru afișarea întrebărilor
+    function displayQuestions() {
+      var questionsElement = document.getElementById("questions");
+
+      for (var i = 0; i < questions.length; i++) {
+        var questionHTML = "<label>" + questions[i].question + "</label><br>";
+        questionHTML += '<select class="answerInput" data-question="' + i + '">';
+        for (var j = 0; j < questions[i].options.length; j++) {
+          questionHTML += '<option value="' + questions[i].options[j] + '">' + questions[i].options[j] + '</option>';
+        }
+        questionHTML += '</select><br><br>';
+        questionsElement.innerHTML += questionHTML;
+      }
+    }
+
+    // Funcție pentru verificarea răspunsurilor
+    function checkAnswers() {
+      var selects = document.getElementsByClassName("answerInput");
+      var resultElement = document.getElementById("result");
+      var correctAnswers = 0;
+
+      for (var i = 0; i < selects.length; i++) {
+        var userAnswer = selects[i].value;
+        var questionIndex = selects[i].getAttribute("data-question");
+
+        if (userAnswer === questions[questionIndex].answer) {
+          selects[i].style.backgroundColor = "lightgreen";
+          correctAnswers++;
+        } else {
+          selects[i].style.backgroundColor = "pink";
+        }
+      }
+
+      var scorePercentage = (correctAnswers / questions.length) * 100;
+      resultElement.innerHTML = "Exercițiul s-a încheiat. Scorul tău final: " + scorePercentage.toFixed(2) + "%";
+    }
+
+    // Afișăm întrebările la încărcarea paginii
+    displayQuestions();
+  </script>
+</body>
+</html>
